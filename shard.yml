@@ -1,0 +1,9 @@
+name: exec
+version: 0.1.0
+
+authors:
+  - initdc <initd@outlook.com>
+
+crystal: ">= 1.0.0, < 2.0.0"
+
+license: MIT
