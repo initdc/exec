@@ -21,6 +21,10 @@ describe Exec do
     Exec.output("uname").should eq "Linux"
   end
 
+  it "get Linux\n" do
+    Exec.output("uname", false).should eq "Linux\n"
+  end
+
   it "log to file" do
     tempfile = File.tempfile("test_", ".log")
     Exec.run("uname", output: File.open(tempfile.path, "a+"))

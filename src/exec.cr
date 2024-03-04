@@ -1,5 +1,5 @@
 class Exec < Process
-  VERSION = "0.1.0"
+  VERSION = "0.1.1"
 
   def self.run(command : String, args = nil, env : Env = nil, clear_env : Bool = false, shell : Bool = true,
                input : Stdio = Redirect::Inherit, output : Stdio = Redirect::Inherit, error : Stdio = Redirect::Inherit, chdir : Path | String? = nil) : Process::Status
@@ -17,12 +17,13 @@ class Exec < Process
     127
   end
 
-  def self.output(command) : String
+  def self.output(command, chomp = true) : String
     process = new(command, shell: true, input: Redirect::Inherit, output: Redirect::Pipe, error: Redirect::Inherit)
     output = process.output.gets_to_end
     status = process.wait
     $? = status
-    output.chomp
+    return output.chomp if chomp
+    output
   end
 
   def self.each_line(command, chomp = false, &block : String ->) : Nil
